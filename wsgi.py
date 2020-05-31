@@ -9,13 +9,13 @@ import random
 
 app = Flask(__name__)
 
-@app.route('/weather', methods=['POST'])
+@app.route('/weather/api/v1/<city>&<state>', methods=['GET'])
 
-def weather():
+def weather(city, state):
     today = date.today()
-    city = request.form['city']
+    # city = request.form['city']
 
-    r = requests.get('http://api.openweathermap.org/data/2.5/weather?q='+city+'&appid=c5ec3e05ed22c969db668578d373540a&units=imperial')
+    r = requests.get('http://api.openweathermap.org/data/2.5/weather?q='+city+','+state+',usa&appid=c5ec3e05ed22c969db668578d373540a&units=imperial')
     r2 = requests.get('http://api.eventful.com/json/events/search?...&location='+city+'&date=Today&within=10&app_key=pz8fmcjnBKqnM8rw')
 
     json_object = r.json()

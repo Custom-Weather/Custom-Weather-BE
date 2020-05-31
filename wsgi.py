@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request
 from datetime import date
+import datetime
+import time
 import requests
 import json
 
@@ -28,6 +30,12 @@ def weather():
         temp_low_unrounded = (float(json_object['main']['temp_min']) * (9/5) - 459.67)
         temp_low = round(temp_low_unrounded, 2)
 
+        sunrise_unix = json_object['sys']['sunrise']
+        sunrise = datetime.datetime.fromtimestamp(sunrise_unix).strftime('%I:%M %p')
+
+        sunset_unix = json_object['sys']['sunset']
+        sunset = datetime.datetime.fromtimestamp(sunset_unix).strftime('%I:%M %p')
+
         final = { 'forcast':
                     {
                     'city': json_object['name'],
@@ -35,8 +43,8 @@ def weather():
                     'current_temp': temp,
                     'high': temp_high,
                     'low': temp_low,
-                    'sunrise': json_object['sys']['sunrise'],
-                    'sunset': json_object['sys']['sunset']
+                    'sunrise': sunrise,
+                    'sunset': sunset
                     },
                   'events':
                     { 'event_one' :
@@ -63,31 +71,6 @@ def weather():
                         {
                         'name': json_object2['events']['event'][4]['title'],
                         'url': json_object2['events']['event'][4]['url']
-                        },
-                     'event_six' :
-                        {
-                        'name': json_object2['events']['event'][5]['title'],
-                        'url': json_object2['events']['event'][5]['url']
-                        },
-                     'event_seven' :
-                        {
-                        'name': json_object2['events']['event'][6]['title'],
-                        'url': json_object2['events']['event'][6]['url']
-                        },
-                     'event_eight' :
-                        {
-                        'name': json_object2['events']['event'][7]['title'],
-                        'url': json_object2['events']['event'][7]['url']
-                        },
-                     'event_nine' :
-                        {
-                        'name': json_object2['events']['event'][8]['title'],
-                        'url': json_object2['events']['event'][8]['url']
-                        },
-                     'event_ten' :
-                        {
-                        'name': json_object2['events']['event'][9]['title'],
-                        'url': json_object2['events']['event'][9]['url']
                         }
                     }
                 }

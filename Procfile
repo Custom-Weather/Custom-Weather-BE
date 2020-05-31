@@ -1,1 +1,1 @@
-web: gunicorn custom_weather_BE.wsgi --log-file -
+web: gunicorn wsgi.py --log-file -

@@ -13,41 +13,13 @@ app = Flask(__name__)
 
 def weather(lat, long):
     weather_request = requests.get('https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+long+'&appid=c5ec3e05ed22c969db668578d373540a&units=imperial')
-    events_request = requests.get('http://api.eventful.com/json/events/search?...&where='+lat+','+long+'&within=20&app_key=pz8fmcjnBKqnM8rw')
-
     weather_json = weather_request.json()
-    events_json = events_request.json()
-
-    # def getBooks(url):
-    res = requests.get('https://www.goodreads.com/shelf/show/trending')
-    res.raise_for_status
-
-    soup = bs4.BeautifulSoup(res.text, 'html.parser')
-    elems = soup.find_all("a", class_="bookTitle")[0:10]
-    books = [i.text for i in elems]
-
-    # def getMovies()
-    url = 'http://www.imdb.com/chart/top'
-    response = requests.get(url)
-    soup = bs4.BeautifulSoup(response.text, 'html.parser')
-    movies = soup.select('td.titleColumn')
-    links = [a.attrs.get('href') for a in soup.select('td.titleColumn a')]
-    crew = [a.attrs.get('title') for a in soup.select('td.titleColumn a')]
-    ratings = [b.attrs.get('data-value')
-          for b in soup.select('td.posterColumn span[name=ir]')]
-    imdb = []
-
-    # Movie List Creation
-    for index in range(0, len(movies)):
-        movie_string = movies[index].get_text()
-        movie = (' '.join(movie_string.split()).replace('.', ''))
-        movie_title = movie[len(str(index))+1:-7]
-        place = movie[:len(str(index))-(len(movie))]
-        imdb.append(movie_title)
-
-    random_movies = random.sample(imdb, 10)
 
     if weather_json['daily'][0]['temp']['day'] > 60 and (weather_json['current']['weather'][0]['main'] == "Clear" or weather_json['current']['weather'][0]['main'] == "Clouds"):
+
+        events_request = requests.get('http://api.eventful.com/json/events/search?...&where='+lat+','+long+'&within=20&app_key=pz8fmcjnBKqnM8rw')
+        events_json = events_request.json()
+
 
         final = {
                 'current': str(weather_json['current']['temp']) + '°F',
@@ -211,6 +183,35 @@ def weather(lat, long):
         return final_json
 
     else:
+
+        # def getBooks(url):
+        res = requests.get('https://www.goodreads.com/shelf/show/trending')
+        res.raise_for_status
+
+        soup = bs4.BeautifulSoup(res.text, 'html.parser')
+        elems = soup.find_all("a", class_="bookTitle")[0:10]
+        books = [i.text for i in elems]
+
+        # def getMovies()
+        url = 'http://www.imdb.com/chart/top'
+        response = requests.get(url)
+        soup = bs4.BeautifulSoup(response.text, 'html.parser')
+        movies = soup.select('td.titleColumn')
+        links = [a.attrs.get('href') for a in soup.select('td.titleColumn a')]
+        crew = [a.attrs.get('title') for a in soup.select('td.titleColumn a')]
+        ratings = [b.attrs.get('data-value')
+              for b in soup.select('td.posterColumn span[name=ir]')]
+        imdb = []
+
+        # Movie List Creation
+        for index in range(0, len(movies)):
+            movie_string = movies[index].get_text()
+            movie = (' '.join(movie_string.split()).replace('.', ''))
+            movie_title = movie[len(str(index))+1:-7]
+            place = movie[:len(str(index))-(len(movie))]
+            imdb.append(movie_title)
+
+        random_movies = random.sample(imdb, 10)
 
         final = {
                 'current': str(weather_json['current']['temp']) + '°F',

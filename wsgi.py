@@ -49,7 +49,7 @@ def weather(lat, long):
 
     if weather_json['daily'][0]['temp']['day'] > 60 and (weather_json['current']['weather'][0]['main'] == "Clear" or weather_json['current']['weather'][0]['main'] == "Clouds"):
 
-        final = [{
+        final = {
                 'current': str(weather_json['current']['temp']) + '°F',
                 'sunrise': datetime.datetime.fromtimestamp(weather_json['current']['sunrise']).strftime('%I:%M %p').lstrip('0'),
                 'sunset': datetime.datetime.fromtimestamp(weather_json['current']['sunset']).strftime('%I:%M %p').lstrip('0'),
@@ -205,14 +205,14 @@ def weather(lat, long):
                         'url': events_json['events']['event'][4]['url']
                         }
                     }
-                }]
+                }
 
         final_json = json.dumps(final)
         return final_json
 
     else:
 
-        final = [{
+        final = {
                 'current': str(weather_json['current']['temp']) + '°F',
                 'sunrise': datetime.datetime.fromtimestamp(weather_json['current']['sunrise']).strftime('%I:%M %p').lstrip('0'),
                 'sunset': datetime.datetime.fromtimestamp(weather_json['current']['sunset']).strftime('%I:%M %p').lstrip('0'),
@@ -369,7 +369,7 @@ def weather(lat, long):
                         'movie10': f'{random_movies[9]}'
                         }
                     }
-                }]
+                }
         final_json = json.dumps(final)
         return final_json
 

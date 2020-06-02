@@ -27,6 +27,7 @@ Pillow==7.1.2
 PyAutoGUI==0.9.50
 pycodestyle==2.6.0
 PyGetWindow==0.0.8
+pytest==5.4.3
 PyJWT==1.7.1
 pylint==2.5.2
 PyMsgBox==1.0.8

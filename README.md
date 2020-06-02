@@ -6,7 +6,7 @@ to return a randomly selected restaurant based on query parameters provided by t
 
 
 ### API Endpoint
-https://weatherbeefy.herokuapp.com/weather/api/v1/<latitude>&<-longitude>
+`https://weatherbeefy.herokuapp.com/weather/api/v1/<latitude>&<longitude>`
 
 
 ### Query params
@@ -18,18 +18,29 @@ value: decimal format
 
 
 ### Installation
-* Install Pythonwith the command brew install python3
-* Clone this repo to your local machine with: git clone git@github.com:Custom-Weather/Custom-Weather-BE.git
-* Setup your virtual environment with python3 -m venv env
-* Activate your environment with env/bin/activate
-* Use pip3 to install
-
-```python
-$ bundle exec rspec
+* Install Python
+```
+$ brew install python3
+```
+* Clone this repo to your local machine with: 
+```
+$ git clone git@github.com:Custom-Weather/Custom-Weather-BE.git
+```
+* Setup your virtual environment with 
+```
+$ python3 -m venv env
+```
+* Activate your environment
+```
+$ env/bin/activate
+```
+* Use pip3 to install modules required
+```
+$ pip install -r requirements.txt
 ```
 
 This Flask microservice uses the following modules for testing:
-   * pytest
+   * Pytest
 
 To run the test suite, simply run the command `pytest` from your terminal.
 

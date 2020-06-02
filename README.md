@@ -13,8 +13,7 @@ If you'd like to checkout the frontend React application, it can be found at htt
 * David Holtkamp - https://github.com/david-holtkamp
 
 ### Technology Stack
-
-
+[tech_stack.pdf](https://github.com/Custom-Weather/Custom-Weather-BE/files/4720142/tech_stack.pdf)
 
 
 ### API Endpoint

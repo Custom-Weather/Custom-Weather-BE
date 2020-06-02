@@ -1,8 +1,20 @@
 # Custom-Weather-BE
 
 ### Description
-Custom-Weather-BE is a Flask microservice used as the backend for the Custom-Weather web application. This microservice makes two API calls to OpenWeather and Eventful as well as web scrapes to finding trending books and movies. 
-to return a randomly selected restaurant based on query parameters provided by the user.
+Custom-Weather-BE is a Flask microservice used as the backend for the Custom-Weather web application. This microservice makes two API calls to OpenWeather and Eventful as well as web scrapes for returning trending books and movies.
+
+If you'd like to checkout the frontend React application, it can be found at https://github.com/Custom-Weather/Custom-Weather-FE
+
+
+## Developer Team
+* Matt Holmes - https://github.com/holmesm8
+* Will Meighan - https://github.com/Will-Meighan
+* Kathleen Carroll - https://github.com/kathleen-carroll
+* David Holtkamp - https://github.com/david-holtkamp
+
+### Technology Stack
+
+
 
 
 ### API Endpoint
@@ -17,7 +29,7 @@ key: longitude
 value: decimal format
 
 
-### Installation
+### Local Installation
 * Install Python
 ```
 $ brew install python3
@@ -39,14 +51,18 @@ $ env/bin/activate
 $ pip install -r requirements.txt
 ```
 
-This Flask microservice uses the following modules for testing:
-   * Pytest
 
-To run the test suite, simply run the command `pytest` from your terminal.
+### Testing
+
+This Flask application uses the pytest module for testing. To run simply run the command:
+```
+$ pytest
+```
+If you'd like to see your test coverage, run:
+```
+$ coverage -m pytest
+```
 
 
-## Project Collaborators
-* Matt Holmes - https://github.com/holmesm8
-* Will Meighan - https://github.com/Will-Meighan
-* Kathleen Carroll - https://github.com/kathleen-carroll
-* David Holtkamp - https://github.com/david-holtkamp
+### Return JSON Object
+

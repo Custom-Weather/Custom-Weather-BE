@@ -20,10 +20,10 @@ If you'd like to checkout the frontend React application, it can be found at htt
 
 
 ### Query params
-* key: `latitude`
+* key: `lat`
 * value: `decimal format`
 
-* key: `longitude`
+* key: `long`
 * value: `decimal format`
 
 

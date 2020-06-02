@@ -13,19 +13,18 @@ If you'd like to checkout the frontend React application, it can be found at htt
 * David Holtkamp - https://github.com/david-holtkamp
 
 ### Technology Stack
-[tech_stack.pdf](https://github.com/Custom-Weather/Custom-Weather-BE/files/4720142/tech_stack.pdf)
-
+<img width="596" alt="tech_stack" src="https://user-images.githubusercontent.com/12539215/83579133-ac20e080-a4f5-11ea-9b6b-5f2e0251f1e2.png">
 
 ### API Endpoint
 `https://weatherbeefy.herokuapp.com/weather/api/v1/<latitude>&<longitude>`
 
 
 ### Query params
-key: latitude
-value: decimal format
+* key: `latitude`
+* value: `decimal format`
 
-key: longitude
-value: decimal format
+* key: `longitude`
+* value: `decimal format`
 
 
 ### Local Installation
@@ -63,5 +62,6 @@ $ coverage -m pytest
 ```
 
 
-### Return JSON Object
+### Expected JSON Object
+<img width="500" alt="Screen Shot 2020-06-02 at 4 46 28 PM" src="https://user-images.githubusercontent.com/12539215/83579343-38330800-a4f6-11ea-911c-40b2566e1de4.png">
 

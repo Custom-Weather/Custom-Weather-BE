@@ -18,7 +18,7 @@ def weather(lat, long):
     weather_request = requests.get('https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+long+'&appid=c5ec3e05ed22c969db668578d373540a&units=imperial')
     weather_json = weather_request.json()
 
-    if weather_json['daily'][0]['temp']['day'] > 0 and (weather_json['current']['weather'][0]['main'] == "Clear" or weather_json['current']['weather'][0]['main'] == "Clouds"):
+    if weather_json['daily'][0]['temp']['day'] > 60 and (weather_json['current']['weather'][0]['main'] == "Clear" or weather_json['current']['weather'][0]['main'] == "Clouds"):
 
         five_events = events_api.getEvents(lat, long)
         final = {
@@ -152,7 +152,7 @@ def weather(lat, long):
                 'notifications':
                     five_events
                 }
-                
+
         final_json = json.dumps(final)
         return final_json
 

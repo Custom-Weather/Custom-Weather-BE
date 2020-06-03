@@ -10,15 +10,51 @@ import events_api
 import book_webscrape
 import movie_webscraper
 import os
+import base64
 
 app = Flask(__name__)
 
 @app.route('/weather/api/v1/<lat>&<long>', methods=['GET'])
 
 def weather(lat, long):
+
+    spotify_id = os.getenv('SPOTIFY_CLIENT_ID')
+    spotify_secret = os.getenv('SPOTIFY_CLIENT_SECRET')
+
+    userpass = spotify_id + ':' + spotify_secret
+    encoded_u = base64.b64encode(userpass.encode()).decode()
+
+    spotify_url = "https://accounts.spotify.com/api/token"
+
+    payload = 'grant_type=client_credentials'
+    headers = {
+      'Authorization': "Basic %s" % encoded_u,
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
+    spotify_response = requests.request("POST", spotify_url, headers=headers, data = payload)
+    spotify_token = (spotify_response.text.encode('utf8'))
+
+    spotify_token_json = json.loads(spotify_token)
+    spotify_token_json['access_token']
+    spotify_token = spotify_token_json['access_token']
+
     weather_token = os.getenv('WEATHER_API_KEY')
     weather_request = requests.get('https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+long+'&appid='+weather_token+'&units=imperial')
     weather_json = weather_request.json()
+
+    spotify_search = weather_json['current']['weather'][0]['main']
+
+
+    spotify_get_url = 'https://api.spotify.com/v1/search?q='+spotify_search+',day&type=playlist&limit=1'
+
+    payload = {}
+    headers = {
+      'Authorization': 'Bearer '+spotify_token+''
+    }
+
+    spotify_request = requests.request("GET", spotify_get_url, headers=headers, data = payload)
+    spotify_json = spotify_request.json()
 
     if weather_json['daily'][0]['temp']['day'] > 60 and (weather_json['current']['weather'][0]['main'] == "Clear" or weather_json['current']['weather'][0]['main'] == "Clouds"):
 
@@ -152,7 +188,8 @@ def weather(lat, long):
                         }],
                     }],
                 'notifications':
-                    five_events
+                    five_events,
+                'spotify': spotify_json['playlists']['items'][0]['id']
                 }
 
         final_json = json.dumps(final)
@@ -295,8 +332,10 @@ def weather(lat, long):
                         books,
                     'movies':
                         random_movies
-                    }
+                    },
+                'spotify': spotify_json['playlists']['items'][0]['id']
                 }
+
         final_json = json.dumps(final)
         return final_json
 

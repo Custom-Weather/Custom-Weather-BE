@@ -9,13 +9,15 @@ import random
 import events_api
 import book_webscrape
 import movie_webscraper
+import os
 
 app = Flask(__name__)
 
 @app.route('/weather/api/v1/<lat>&<long>', methods=['GET'])
 
 def weather(lat, long):
-    weather_request = requests.get('https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+long+'&appid=c5ec3e05ed22c969db668578d373540a&units=imperial')
+    weather_token = os.getenv('WEATHER_API_KEY')
+    weather_request = requests.get('https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+long+'&appid='+weather_token+'&units=imperial')
     weather_json = weather_request.json()
 
     if weather_json['daily'][0]['temp']['day'] > 60 and (weather_json['current']['weather'][0]['main'] == "Clear" or weather_json['current']['weather'][0]['main'] == "Clouds"):

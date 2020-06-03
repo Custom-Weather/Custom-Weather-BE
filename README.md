@@ -13,7 +13,8 @@ If you'd like to checkout the frontend React application, it can be found at htt
 * David Holtkamp - https://github.com/david-holtkamp
 
 ### Technology Stack
-<img width="596" alt="tech_stack" src="https://user-images.githubusercontent.com/12539215/83579133-ac20e080-a4f5-11ea-9b6b-5f2e0251f1e2.png">
+<img width="760" alt="Screen Shot 2020-06-03 at 8 28 55 AM" src="https://user-images.githubusercontent.com/12539215/83649299-445daa80-a574-11ea-973f-39d4eb3cfdde.png">
+
 
 ### API Endpoint
 `https://weatherbeefy.herokuapp.com/weather/api/v1/<latitude>&<longitude>`

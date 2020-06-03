@@ -33,13 +33,13 @@ def test_movies():
 #     assert type(spotify) == dict
 #     assert spotify['playlists']['items'][0]['id']
 
-weather_data = weather_api.get_weather(lat, long)
+# weather_data = weather_api.get_weather(lat, long)
 
-def test_weather_api():
-    assert type(weather_data) == dict
-    assert weather_data['current']
-    assert weather_data['hourly']
-    assert weather_data['daily']
+# def test_weather_api():
+#     assert type(weather_data) == dict
+#     assert weather_data['current']
+#     assert weather_data['hourly']
+#     assert weather_data['daily']
 
 weather = wsgi.weather(lat, long)
 

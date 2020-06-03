@@ -17,8 +17,8 @@ app = Flask(__name__)
 @app.route('/weather/api/v1/<lat>&<long>', methods=['GET'])
 
 def weather(lat, long):
-    spotify_id = os.getenv('SPOTIFY_CLIENT_ID')
-    spotify_secret = os.getenv('SPOTIFY_CLIENT_SECRET')
+    spotify_id = str(os.getenv('SPOTIFY_CLIENT_ID'))
+    spotify_secret = str(os.getenv('SPOTIFY_CLIENT_SECRET'))
 
     userpass = spotify_id + ':' + spotify_secret
     encoded_u = base64.b64encode(userpass.encode()).decode()
@@ -38,7 +38,7 @@ def weather(lat, long):
     spotify_token_json['access_token']
     spotify_token = spotify_token_json['access_token']
 
-    weather_token = os.getenv('WEATHER_API_KEY')
+    weather_token = str(os.getenv('WEATHER_API_KEY'))
     weather_request = requests.get('https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+long+'&appid='+weather_token+'&units=imperial')
     weather_json = weather_request.json()
 

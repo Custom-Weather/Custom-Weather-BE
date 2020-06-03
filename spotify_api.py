@@ -4,8 +4,8 @@ import requests
 import json
 
 def get_spotify(weather_description):
-    spotify_id = os.getenv('SPOTIFY_CLIENT_ID')
-    spotify_secret = os.getenv('SPOTIFY_CLIENT_SECRET')
+    spotify_id = str(os.getenv('SPOTIFY_CLIENT_ID'))
+    spotify_secret = str(os.getenv('SPOTIFY_CLIENT_SECRET'))
 
     userpass = spotify_id + ':' + spotify_secret
     encoded_u = base64.b64encode(userpass.encode()).decode()

@@ -56,8 +56,6 @@ def weather(lat, long):
     spotify_request = requests.request("GET", spotify_get_url, headers=headers, data = payload)
     spotify_json = spotify_request.json()
 
-    return weather_json['current']['weather'][0]
-
     if weather_json['daily'][0]['temp']['day'] > 60 and (weather_json['current']['weather'][0]['main'] == "Clear" or weather_json['current']['weather'][0]['main'] == "Clouds"):
 
         five_events = events_api.getEvents(lat, long)

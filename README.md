@@ -1,7 +1,8 @@
 # Custom-Weather-BE
 
 ### Description
-Custom-Weather-BE is a Flask microservice used as the backend for the Custom-Weather web application. This microservice makes two API calls to OpenWeather and Eventful as well as web scrapes for returning trending books and movies.
+Custom-Weather-BE is a Flask microservice that is used as the backend for the Custom-Weather web application. This microservice makes two API calls to OpenWeather and Eventful as well as web scrapes for trending books and movies. Based
+on the type of weather (sunny, rainy, etc.) the JSON object returned will either local events displayed or the books/movies.
 
 If you'd like to checkout the frontend React application, it can be found at https://github.com/Custom-Weather/Custom-Weather-FE
 
@@ -16,11 +17,9 @@ If you'd like to checkout the frontend React application, it can be found at htt
 <img width="760" alt="Screen Shot 2020-06-03 at 8 28 55 AM" src="https://user-images.githubusercontent.com/12539215/83649299-445daa80-a574-11ea-973f-39d4eb3cfdde.png">
 
 
-### API Endpoint
+### API Endpoint & Query Params
 `https://weatherbeefy.herokuapp.com/weather/api/v1/<latitude>&<longitude>`
 
-
-### Query params
 * key: `lat`
 * value: `decimal format`
 
@@ -63,6 +62,6 @@ $ coverage -m pytest
 ```
 
 
-### Expected JSON Object
+### Expected JSON Object Returned
 <img width="500" alt="Screen Shot 2020-06-02 at 4 46 28 PM" src="https://user-images.githubusercontent.com/12539215/83579343-38330800-a4f6-11ea-911c-40b2566e1de4.png">
 

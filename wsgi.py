@@ -46,7 +46,7 @@ def weather(lat, long):
     spotify_search = weather_json['current']['weather'][0]['main']
 
 
-    spotify_get_url = 'https://api.spotify.com/v1/search?q='+spotify_search+'&type=playlist&limit=1'
+    spotify_get_url = 'https://api.spotify.com/v1/search?q='+spotify_search+',day&type=playlist&limit=1'
 
     payload = {}
     headers = {

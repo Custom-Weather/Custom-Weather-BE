@@ -17,7 +17,6 @@ app = Flask(__name__)
 @app.route('/weather/api/v1/<lat>&<long>', methods=['GET'])
 
 def weather(lat, long):
-
     spotify_id = os.getenv('SPOTIFY_CLIENT_ID')
     spotify_secret = os.getenv('SPOTIFY_CLIENT_SECRET')
 
@@ -44,7 +43,6 @@ def weather(lat, long):
     weather_json = weather_request.json()
 
     spotify_search = weather_json['current']['weather'][0]['main']
-
 
     spotify_get_url = 'https://api.spotify.com/v1/search?q='+spotify_search+',day&type=playlist&limit=1'
 

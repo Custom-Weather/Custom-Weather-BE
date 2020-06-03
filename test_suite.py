@@ -21,11 +21,17 @@ def test_movies():
     assert type(random_movies) == dict
     assert len(random_movies) == 10
 
-spotify = spotify_api.get_spotify("sunny")
+# five_events = events_api.getEvents(lat, long)
 
-def test_spotify_api():
-    assert type(spotify) == dict
-    assert spotify['playlists']['items'][0]['id']
+# def test_events():
+#     assert type(five_events) == dict
+
+
+# spotify = spotify_api.get_spotify("sunny")
+
+# def test_spotify_api():
+#     assert type(spotify) == dict
+#     assert spotify['playlists']['items'][0]['id']
 
 weather_data = weather_api.get_weather(lat, long)
 

@@ -17,6 +17,7 @@ app = Flask(__name__)
 
 @app.route('/weather/api/v1/<lat>&<long>', methods=['GET'])
 
+
 def weather(lat, long):
     spotify_id = config('SPOTIFY_CLIENT_ID')
     spotify_secret = config('SPOTIFY_CLIENT_SECRET')

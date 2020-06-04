@@ -21,11 +21,11 @@ long = '-104.9903'
 #     assert type(random_movies) == dict
 #     assert len(random_movies) == 10
 #
-# five_events = events_api.getEvents(lat, long)
-#
-# def test_events():
-#     assert type(five_events) == dict
-#
+five_events = events_api.getEvents(lat, long)
+
+def test_events():
+    assert type(five_events) == dict
+
 spotify = spotify_api.get_spotify("sunny")
 
 def test_spotify_api():

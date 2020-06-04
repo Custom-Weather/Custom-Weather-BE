@@ -15,12 +15,12 @@ long = '-104.9903'
 #     assert type(books) == dict
 #     assert len(books) == 10
 #
-# random_movies = movie_webscraper.getMovies()
-#
-# def test_movies():
-#     assert type(random_movies) == dict
-#     assert len(random_movies) == 10
-#
+random_movies = movie_webscraper.getMovies()
+
+def test_movies():
+    assert type(random_movies) == dict
+    assert len(random_movies) == 10
+
 five_events = events_api.getEvents(lat, long)
 
 def test_events():

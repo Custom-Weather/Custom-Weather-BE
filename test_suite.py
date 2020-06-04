@@ -26,12 +26,12 @@ long = '-104.9903'
 # def test_events():
 #     assert type(five_events) == dict
 #
-# spotify = spotify_api.get_spotify("sunny")
+spotify = spotify_api.get_spotify("sunny")
 
-# def test_spotify_api():
-#     assert type(spotify) == dict
-#     assert spotify['playlists']['items'][0]['id']
-#
+def test_spotify_api():
+    assert type(spotify) == dict
+    assert spotify['playlists']['items'][0]['id']
+
 weather_data = weather_api.get_weather(lat, long)
 
 def test_weather_api():

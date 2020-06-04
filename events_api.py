@@ -2,8 +2,8 @@ import requests
 import os
 
 def getEvents(lat, long):
-  events_token = str(os.getenv('EVENTFUL_API_KEY'))
-  events_request = requests.get('http://api.eventful.com/json/events/search?...&where='+lat+','+long+'&within=20&app_key='+events_token+'')
+  # events_token = os.getenv('EVENTFUL_API_KEY')
+  events_request = requests.get('http://api.eventful.com/json/events/search?...&where='+lat+','+long+'&within=20&app_key='+EVENTFUL_API_KEY+'')
   events_json = events_request.json()
   hashy = {
           'event_one':

@@ -9,12 +9,12 @@ import weather_api
 lat = '39.7392'
 long = '-104.9903'
 
-# books = book_webscrape.getBooks()
-#
-# def test_books():
-#     assert type(books) == dict
-#     assert len(books) == 10
-#
+books = book_webscrape.getBooks()
+
+def test_books():
+    assert type(books) == dict
+    assert len(books) == 10
+
 random_movies = movie_webscraper.getMovies()
 
 def test_movies():

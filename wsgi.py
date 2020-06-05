@@ -10,7 +10,6 @@ import book_webscrape
 import movie_webscraper
 import base64
 from decouple import config
-import pytz
 from tzwhere import tzwhere
 from dateutil.tz import gettz
 

@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
 from datetime import date
 import datetime
-import time
 import requests
 import json
 import bs4
@@ -9,14 +8,14 @@ import random
 import events_api
 import book_webscrape
 import movie_webscraper
-import os
 import base64
 from decouple import config
+from tzwhere import tzwhere
+from dateutil.tz import gettz
 
 app = Flask(__name__)
 
 @app.route('/weather/api/v1/<lat>&<long>', methods=['GET'])
-
 
 def weather(lat, long):
     spotify_id = config('SPOTIFY_CLIENT_ID')
@@ -56,19 +55,24 @@ def weather(lat, long):
     spotify_request = requests.request("GET", spotify_get_url, headers=headers, data = payload)
     spotify_json = spotify_request.json()
 
+    tz = tzwhere.tzwhere()
+    local_time_zone = tz.tzNameAt(float(lat), float(long))
+
+    datetime.datetime.fromtimestamp(weather_json['current']['sunrise'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0')
+
     if weather_json['daily'][0]['temp']['day'] > 60 and (weather_json['current']['weather'][0]['main'] == "Clear" or weather_json['current']['weather'][0]['main'] == "Clouds"):
 
         five_events = events_api.getEvents(lat, long)
         final = {
                 'current': str(weather_json['current']['temp']) + '°F',
-                'sunrise': datetime.datetime.fromtimestamp(weather_json['current']['sunrise']).strftime('%I:%M %p').lstrip('0'),
-                'sunset': datetime.datetime.fromtimestamp(weather_json['current']['sunset']).strftime('%I:%M %p').lstrip('0'),
+                'sunrise': datetime.datetime.fromtimestamp(weather_json['current']['sunrise'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
+                'sunset': datetime.datetime.fromtimestamp(weather_json['current']['sunset'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                 'high': str(weather_json['daily'][0]['temp']['max']) + '°F',
                 'low': str(weather_json['daily'][0]['temp']['min']) + '°F',
                 'desc': weather_json['current']['weather'][0]['main'],
                 'hourly':
                     [{
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][0]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][0]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][0]['temp']) + '°F',
                     'weather':
                         [{
@@ -78,7 +82,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][1]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][1]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][1]['temp']) + '°F',
                     'weather':
                         [{
@@ -88,7 +92,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][2]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][2]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][2]['temp']) + '°F',
                     'weather':
                         [{
@@ -98,7 +102,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][3]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][3]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][3]['temp']) + '°F',
                     'weather':
                         [{
@@ -108,7 +112,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][4]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][4]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][4]['temp']) + '°F',
                     'weather':
                         [{
@@ -118,7 +122,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][5]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][5]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][5]['temp']) + '°F',
                     'weather':
                         [{
@@ -128,7 +132,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][6]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][6]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][6]['temp']) + '°F',
                     'weather':
                         [{
@@ -138,7 +142,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][7]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][7]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][7]['temp']) + '°F',
                     'weather':
                         [{
@@ -148,7 +152,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][8]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][8]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][8]['temp']) + '°F',
                     'weather':
                         [{
@@ -158,7 +162,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][9]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][9]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][9]['temp']) + '°F',
                     'weather':
                         [{
@@ -168,7 +172,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][10]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][10]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][10]['temp']) + '°F',
                     'weather':
                         [{
@@ -178,7 +182,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][11]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][11]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][11]['temp']) + '°F',
                     'weather':
                         [{
@@ -200,14 +204,14 @@ def weather(lat, long):
         random_movies = movie_webscraper.getMovies()
         final = {
                 'current': str(weather_json['current']['temp']) + '°F',
-                'sunrise': datetime.datetime.fromtimestamp(weather_json['current']['sunrise']).strftime('%I:%M %p').lstrip('0'),
-                'sunset': datetime.datetime.fromtimestamp(weather_json['current']['sunset']).strftime('%I:%M %p').lstrip('0'),
+                'sunrise': datetime.datetime.fromtimestamp(weather_json['current']['sunrise'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
+                'sunset': datetime.datetime.fromtimestamp(weather_json['current']['sunset'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                 'high': str(weather_json['daily'][0]['temp']['max']) + '°F',
                 'low': str(weather_json['daily'][0]['temp']['min']) + '°F',
                 'desc': weather_json['current']['weather'][0]['main'],
                 'hourly':
                     [{
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][0]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][0]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][0]['temp']) + '°F',
                     'weather':
                         [{
@@ -217,7 +221,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][1]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][1]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][1]['temp']) + '°F',
                     'weather':
                         [{
@@ -227,7 +231,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][2]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][2]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][2]['temp']) + '°F',
                     'weather':
                         [{
@@ -237,7 +241,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][3]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][3]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][3]['temp']) + '°F',
                     'weather':
                         [{
@@ -247,7 +251,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][4]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][4]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][4]['temp']) + '°F',
                     'weather':
                         [{
@@ -257,7 +261,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][5]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][5]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][5]['temp']) + '°F',
                     'weather':
                         [{
@@ -267,7 +271,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][6]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][6]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][6]['temp']) + '°F',
                     'weather':
                         [{
@@ -277,7 +281,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][7]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][7]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][7]['temp']) + '°F',
                     'weather':
                         [{
@@ -287,7 +291,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][8]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][8]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][8]['temp']) + '°F',
                     'weather':
                         [{
@@ -297,7 +301,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][9]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][9]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][9]['temp']) + '°F',
                     'weather':
                         [{
@@ -307,7 +311,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][10]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][10]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][10]['temp']) + '°F',
                     'weather':
                         [{
@@ -317,7 +321,7 @@ def weather(lat, long):
                         }],
                     },
                     {
-                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][11]['dt']).strftime('%I:%M %p').lstrip('0'),
+                    'dt': datetime.datetime.fromtimestamp(weather_json['hourly'][11]['dt'], gettz(local_time_zone)).strftime('%I:%M %p').lstrip('0'),
                     'temp': str(weather_json['hourly'][11]['temp']) + '°F',
                     'weather':
                         [{

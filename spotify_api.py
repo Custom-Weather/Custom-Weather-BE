@@ -1,5 +1,4 @@
 import base64
-import os
 import requests
 import json
 from decouple import config

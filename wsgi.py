@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
 from datetime import date
 import datetime
-import time
 import requests
 import json
 import bs4
@@ -9,7 +8,6 @@ import random
 import events_api
 import book_webscrape
 import movie_webscraper
-import os
 import base64
 from decouple import config
 import pytz

@@ -31,7 +31,7 @@ pytest==5.4.3
 PyJWT==1.7.1
 pylint==2.5.2
 PyMsgBox==1.0.8
-PyPDF2==1.26.0
+PyPDF2==1.27.5
 pyperclip==1.8.0
 PyRect==0.1.4
 PyScreeze==0.1.26
